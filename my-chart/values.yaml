@@ -1,0 +1,33 @@
+# Default values for my-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 4
+
+dockerhubSecret: |
+  {
+    "auths": {
+      "https://index.docker.io/v1/": {
+        "auth": "c2hheXNhcmRhbTpkY2tyX3BhdF9SZlVEa21KMW9OZDVqcTNmYi10S2VQSENDQUU="
+      }
+    }
+  }
+  
+weatherApp:
+  image:
+    pullPolicy: Always
+    repository: shaysardam/k8s
+    tag: latest
+  pvc:
+    name: weather-app-pvc
+    accessMode: ReadWriteOnce  # Change from ReadWriteMany to ReadWriteOnce
+    size: 1Gi
+    storageClassName: gp3
+  configMapName: weather-app-green-config
+
+
+solitaireApp:
+  image:
+    pullPolicy: Always
+    repository: chimenesjr/solitaire
+    tag: nginx
